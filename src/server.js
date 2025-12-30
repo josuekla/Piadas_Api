@@ -1,13 +1,15 @@
-const express = require("express");
+import express from "express";
+import indexRoutes from "./routes/index.routes.js";
+import piadasRoutes from "./routes/piadas.routes.js";
 const app = express();
 
 app.use(express.json());
 
-const piadasRoutes = require("./routes/piadas");
 app.use("/piadas", piadasRoutes);
+app.use("/", indexRoutes);
 
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
-  console.log("API rodando 🚀");
+  console.log(`API rodando 🚀 na porta ${PORT}`);
 });
 
