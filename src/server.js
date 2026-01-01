@@ -5,7 +5,7 @@ const app = express();
 
 app.use(express.json());
 
-app.use("/piadas", piadasRoutes);
+app.use("/api/v1/piadas", piadasRoutes);
 app.use("/", indexRoutes);
 
 const PORT = process.env.PORT || 3000;
