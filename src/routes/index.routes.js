@@ -5,6 +5,6 @@ express().set("view engine", "ejs");
 
 
 router.get("/", (req, res) => {
-  res.render("index.ejs", { title: "API de Piadas", message: "Bem-vindo à API de Piadas!" });
+  res.render("index.ejs");
 });
 export default router;
