@@ -34,7 +34,6 @@ router.get("/", limiter, (req, res) => {
 
 router.get("/random", limiter, (req, res) => {
   // console.log(limit)
-  
   const aleatoria = piadas[Math.floor(Math.random() * piadas.length)];
   res.json(aleatoria);
 });
