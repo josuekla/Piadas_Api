@@ -1,26 +1,138 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Api Piadas V1</title>
+    <title>API Piadas — Documentação & Demo</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root{--bg:#0f1724;--card:#0b1220;--muted:#9aa4b2;--accent:#10b981;--glass:rgba(255,255,255,0.04)}
+        *{box-sizing:border-box}
+        body{font-family:Inter,system-ui,Segoe UI,Arial,sans-serif;background:linear-gradient(180deg,#071023 0%,#071827 100%);color:#e6eef6;margin:0;padding:32px}
+        .wrap{max-width:1000px;margin:0 auto}
+        header{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:20px}
+        h1{margin:0;font-size:1.6rem}
+        .subtitle{color:var(--muted);font-size:0.95rem}
+
+        .grid{display:grid;grid-template-columns:1fr 360px;gap:18px}
+        @media (max-width:900px){.grid{grid-template-columns:1fr}}
+
+        .card{background:linear-gradient(180deg,rgba(255,255,255,0.02),transparent);border-radius:12px;padding:18px;border:1px solid rgba(255,255,255,0.04);box-shadow:0 6px 18px rgba(2,6,23,0.6)}
+        .card h2{margin-top:0}
+
+        pre{background:var(--card);padding:12px;border-radius:8px;color:#cfeef0;overflow:auto;border:1px solid rgba(255,255,255,0.03)}
+
+        .endpoints{display:flex;flex-direction:column;gap:10px}
+        .endpoint{display:flex;align-items:center;gap:10px;background:var(--glass);padding:10px;border-radius:8px}
+        .method{font-weight:700;color:#063; background:rgba(16,185,129,0.12);padding:6px 8px;border-radius:6px;font-size:0.85rem}
+        .link{color:#e6f9f0;font-weight:600;text-decoration:none}
+
+        .controls{display:flex;gap:8px;flex-wrap:wrap;margin-top:8px}
+        select,button{padding:8px 12px;border-radius:8px;border:0;background:linear-gradient(180deg,#0d2330,#091922);color:#e6eef6}
+        button.primary{background:linear-gradient(90deg,var(--accent),#06a77a);box-shadow:0 6px 18px rgba(16,185,129,0.12);border:0}
+        .result{margin-top:12px;padding:12px;border-radius:10px;background:linear-gradient(180deg,rgba(255,255,255,0.02),transparent);border:1px solid rgba(255,255,255,0.03);min-height:120px}
+
+        .meta{color:var(--muted);font-size:0.9rem;margin-bottom:8px}
+        a.copy{color:var(--muted);font-size:0.85rem;margin-left:8px;text-decoration:none}
+
+        .small{font-size:0.9rem;color:var(--muted)}
+        footer{margin-top:18px;color:var(--muted);font-size:0.85rem}
+    </style>
 </head>
 <body>
-    <h1>Bem vindo à API de Piadas! V1</h1>
-    <h2>End Points:</h2>
-    <ul>
-        <li>GET - /api/v1/piadas - Retorna uma lista de piadas.</li>
-        <li>GET - /api/v1/piadas?categoria=&lt;nomecategoria&gt; - Retorna uma lista de piadas filtradas por categoria.</li>
-        <li>GET - /api/v1/piadas/random - Retorna uma piada aleatória.</li>
-    </ul>
+    <div class="wrap">
+        <header>
+            <div>
+                <h1>API Piadas</h1>
+                <div class="subtitle">Documentação interativa — endpoints públicos</div>
+            </div>
+            <div class="meta">Servidor: <strong><%= url %></strong></div>
+        </header>
 
-    <h2>Categorias disponíveis:</h2>
-    <ul>
-        <li>tecnologia </li>
-        <li>educação </li>
-        <li>cotidiano </li>
-        <li>entretenimento </li>
-        <li>animais</li>
-        <li>comida</li>
+        <div class="grid">
+            <main class="card">
+                <h2>Endpoints</h2>
+                <div class="endpoints">
+                    <div class="endpoint"><div class="method">GET</div><div><a class="link" href="<%= url %>api/v1/piadas"><%= url %>api/v1/piadas</a></div></div>
+                    <div class="endpoint"><div class="method">GET</div><div><a class="link" href="<%= url %>api/v1/piadas?categoria=tecnologia"><%= url %>api/v1/piadas?categoria=tecnologia</a></div></div>
+                    <div class="endpoint"><div class="method">GET</div><div><a class="link" href="<%= url %>api/v1/piadas/random"><%= url %>api/v1/piadas/random</a></div></div>
+                </div>
+
+                <h3 style="margin-top:16px">Exemplos</h3>
+                <div class="small">curl</div>
+                <pre>curl <%= url %>api/v1/piadas
+curl "<%= url %>api/v1/piadas?categoria=tecnologia"
+curl <%= url %>api/v1/piadas/random</pre>
+
+                <div class="small">JavaScript (fetch)</div>
+                <pre>fetch('<%= url %>api/v1/piadas').then(r=>r.json()).then(console.log)
+fetch('<%= url %>api/v1/piadas?categoria=educação').then(r=>r.json()).then(console.log)
+fetch('<%= url %>api/v1/piadas/random').then(r=>r.json()).then(console.log)</pre>
+
+                <h3>Notas</h3>
+                <ul class="small">
+                    <li>Altere a origem se o servidor não estiver em <code><%= url %></code>.</li>
+                    <li>O demo exibe até 50 resultados por busca para manter a responsividade.</li>
+                </ul>
+            </main>
+
+            <aside class="card">
+                <h2>Demo interativa</h2>
+                <div class="small">Filtre por categoria ou peça uma piada aleatória.</div>
+
+                <div style="margin-top:12px">
+                    <label for="categoria" class="small">Categoria</label>
+                    <div class="controls">
+                        <select id="categoria">
+                            <option value="">-- todas --</option>
+                            <option value="tecnologia">tecnologia</option>
+                            <option value="educação">educação</option>
+                            <option value="cotidiano">cotidiano</option>
+                            <option value="entretenimento">entretenimento</option>
+                            <option value="animais">animais</option>
+                            <option value="comida">comida</option>
+                        </select>
+                        <button id="listar">Buscar</button>
+                        <button id="aleatoria" class="primary">Aleatória</button>
+                    </div>
+                </div>
+
+                <div id="output" class="result">Resultados aparecerão aqui.</div>
+            </aside>
+        </div>
+
+        <footer>
+            <div>API Piadas — documentação gerada. Quer que eu adicione paginação ou exporte para README?</div>
+        </footer>
+    </div>
+
+    <script>
+        const output = document.getElementById('output');
+        const listarBtn = document.getElementById('listar');
+        const aleatoriaBtn = document.getElementById('aleatoria');
+        const categoriaSel = document.getElementById('categoria');
+
+        function show(obj){
+            if(!obj) return output.textContent='Nenhum resultado.';
+            if(Array.isArray(obj)){
+                output.innerHTML = obj.slice(0,50).map(p=>`<div style="margin-bottom:10px"><strong>#${p.id}</strong> <em style="color:#9aa4b2">${p.categoria}</em><div style="margin-top:6px">${p.piada}</div><div style="color:#9aa4b2;font-size:0.9rem">${p.resposta}</div></div>`).join('');
+                if(obj.length>50) output.innerHTML += `<div style="color:#9aa4b2;font-size:0.85rem"><em>Mostrando 50 de ${obj.length} resultados.</em></div>`;
+            } else {
+                output.innerHTML = `<div><strong>#${obj.id}</strong> <em style="color:#9aa4b2">${obj.categoria}</em><div style="margin-top:6px">${obj.piada}</div><div style="color:#9aa4b2;font-size:0.95rem">${obj.resposta}</div></div>`;
+            }
+        }
+
+        listarBtn.addEventListener('click', ()=>{
+            const cat = categoriaSel.value;
+            const url = cat?`/api/v1/piadas?categoria=${encodeURIComponent(cat)}`:'/api/v1/piadas';
+            output.textContent='Carregando...';
+            fetch(url).then(r=>r.json()).then(data=>show(data)).catch(err=>output.textContent='Erro: '+err.message);
+        });
+
+        aleatoriaBtn.addEventListener('click', ()=>{
+            output.textContent='Carregando...';
+            fetch('/api/v1/piadas/random').then(r=>r.json()).then(data=>show(data)).catch(err=>output.textContent='Erro: '+err.message);
+        });
+    </script>
 </body>
 </html>

@@ -5,6 +5,7 @@ express().set("view engine", "ejs");
 
 
 router.get("/", (req, res) => {
-  res.render("index.ejs");
+  const url = `${req.protocol}://${req.get('host')}${req.originalUrl}`;
+  res.render("index.ejs", { url: url });
 });
 export default router;
