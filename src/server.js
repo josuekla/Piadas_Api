@@ -4,17 +4,13 @@ import piadasRoutes from "./routes/piadas.routes.js";
 import authRoutes from "./routes/auth.routes.js";
 import authenticate from "../middlewares/auth.js";
 import helmet from "helmet";
-import apicache from "apicache";
 
 const app = express();
-const cache = apicache.middleware;
 
 app.set('trust proxy', 1);
 app.use(express.json());  // Mova para antes das rotas
 app.use(helmet());
 
-// Cache apenas para rotas públicas (não auth)
-app.use('/api/v1/piadas', cache('2 minutes'));
 
 const blacklist = ["1.2.3.4"];
 
